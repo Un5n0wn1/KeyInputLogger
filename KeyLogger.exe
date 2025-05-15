@@ -1,0 +1,36 @@
+using System;
+using System.IO;
+
+namespace KeyInputLogger
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            string logFilePath = Path.Combine(downloadsPath, "key_log.txt");
+
+            Console.WriteLine("Press keys (ESC to exit). Logging to: " + logFilePath);
+            using (StreamWriter writer = new StreamWriter(logFilePath, append: true))
+            {
+                while (true)
+                {
+                    if (Console.KeyAvailable)
+                    {
+                        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                        string keyPressed = keyInfo.Key.ToString();
+                        writer.WriteLine($"[{DateTime.Now}] Key Pressed: {keyPressed}");
+                        writer.Flush(); // Ensures data is written immediately
+
+                        Console.WriteLine($"Key Pressed: {keyPressed}");
+
+                        if (keyInfo.Key == ConsoleKey.Escape)
+                            break;
+                    }
+                }
+            }
+
+            Console.WriteLine("Logging finished. Check your Downloads folder.");
+        }
+    }
+}
