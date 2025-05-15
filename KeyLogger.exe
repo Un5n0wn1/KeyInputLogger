@@ -1,36 +1,28 @@
 using System;
-using System.IO;
 
-namespace KeyInputLogger
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main(string[] args)
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("!!! WARNING !!!");
+        Console.ResetColor();
+        Console.WriteLine("This program looks suspicious!");
+        Console.WriteLine("Would you like to run this malware? (Y/N)");
+
+        ConsoleKeyInfo key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.Y)
         {
-            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-            string logFilePath = Path.Combine(downloadsPath, "key_log.txt");
-
-            Console.WriteLine("Press keys (ESC to exit). Logging to: " + logFilePath);
-            using (StreamWriter writer = new StreamWriter(logFilePath, append: true))
-            {
-                while (true)
-                {
-                    if (Console.KeyAvailable)
-                    {
-                        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                        string keyPressed = keyInfo.Key.ToString();
-                        writer.WriteLine($"[{DateTime.Now}] Key Pressed: {keyPressed}");
-                        writer.Flush(); // Ensures data is written immediately
-
-                        Console.WriteLine($"Key Pressed: {keyPressed}");
-
-                        if (keyInfo.Key == ConsoleKey.Escape)
-                            break;
-                    }
-                }
-            }
-
-            Console.WriteLine("Logging finished. Check your Downloads folder.");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("\nMalware is now running... Just kidding! This is a harmless prank.");
+            Console.ResetColor();
         }
+        else
+        {
+            Console.WriteLine("\nWise choice! Exiting safely.");
+        }
+
+        Console.WriteLine("Press any key to exit.");
+        Console.ReadKey();
     }
 }
