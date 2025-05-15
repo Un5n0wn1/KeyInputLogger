@@ -1,6 +1,6 @@
 #include <windows.h>
 
-int main() {
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     int response = MessageBox(
         NULL,
         "!!! WARNING !!!\n\nThis program looks suspicious.\n\nWould you like to run this malware?",
