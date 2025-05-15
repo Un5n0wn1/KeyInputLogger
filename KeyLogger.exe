@@ -1,28 +1,32 @@
 using System;
+using System.Windows.Forms;
 
-class Program
+namespace FakeVirusPopup
 {
-    static void Main()
+    static class Program
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("!!! WARNING !!!");
-        Console.ResetColor();
-        Console.WriteLine("This program looks suspicious!");
-        Console.WriteLine("Would you like to run this malware? (Y/N)");
-
-        ConsoleKeyInfo key = Console.ReadKey(true);
-        if (key.Key == ConsoleKey.Y)
+        [STAThread]
+        static void Main()
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("\nMalware is now running... Just kidding! This is a harmless prank.");
-            Console.ResetColor();
-        }
-        else
-        {
-            Console.WriteLine("\nWise choice! Exiting safely.");
-        }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-        Console.WriteLine("Press any key to exit.");
-        Console.ReadKey();
+            var result = MessageBox.Show(
+                "!!! WARNING !!!\n\nWould you like to run this malware?",
+                "Security Alert",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show("Malware is now running... Just kidding! This is a harmless prank.",
+                    "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Wise choice! Exiting safely.", "Exit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
