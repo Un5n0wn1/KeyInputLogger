@@ -1,0 +1,32 @@
+using System;
+using System.Windows.Forms;
+
+namespace FakeVirusPopup
+{
+    static class Program
+    {
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            var result = MessageBox.Show(
+                "!!! WARNING !!!\n\nWould you like to run this malware?",
+                "Security Alert",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show("Malware is now running... Just kidding! This is a harmless prank.",
+                    "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Wise choice! Exiting safely.", "Exit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+    }
+}
