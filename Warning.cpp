@@ -1,18 +1,41 @@
-#include <windows.h>
+using System;
+using System.Windows.Forms;
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    int response = MessageBox(
-        NULL,
-        "!!! WARNING !!!\n\nThis program looks suspicious.\n\nWould you like to run this malware?",
-        "Security Alert",
-        MB_YESNO | MB_ICONWARNING
-    );
+namespace FakeVirusPopup
+{
+    static class Program
+    {
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-    if (response == IDYES) {
-        MessageBox(NULL, "Malware is now running... Just kidding! This is a harmless prank.", "Running...", MB_OK | MB_ICONINFORMATION);
-    } else {
-        MessageBox(NULL, "You chose wisely. Exiting safely.", "Exit", MB_OK | MB_ICONINFORMATION);
+            DialogResult result = MessageBox.Show(
+                "!!! WARNING !!!\n\nThis file may contain a virus.\n\nDo you want to continue?",
+                "Security Alert",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show(
+                    "Malware is now running...\n\nJust kidding 😄\nYou're totally safe.",
+                    "System Alert",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Exiting safely. No malware was executed.",
+                    "Exit",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+        }
     }
-
-    return 0;
 }
